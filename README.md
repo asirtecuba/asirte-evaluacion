@@ -1,0 +1,1 @@
+Sistema de encuestas para evaluar los servicios de nuestra agencia de cuidadores. Mide la satisfacción del cliente en calidad, puntualidad y profesionalismo. Los datos recopilados son esenciales para la mejora continua y garantizar la excelencia en el cuidado.
