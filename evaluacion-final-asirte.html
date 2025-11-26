@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evaluación de Servicios - ASIRTE</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      width: 90%;
+      max-width: 520px;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    h1 {
+      margin: 0 0 12px 0;
+      font-size: 26px;
+      color: #005373;
+      font-weight: 600;
+    }
+    .subtitle {
+      font-size: 17px;
+      color: #005373;
+      opacity: 0.9;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+    .question {
+      text-align: left;
+      margin-bottom: 30px;
+    }
+    .question label {
+      display: block;
+      margin-bottom: 14px;
+      font-weight: 500;
+      color: #005373;
+      font-size: 16px;
+    }
+
+    /* Sistema de estrellas RESPONSIVO */
+    .stars {
+      display: flex;
+      gap: 2vw; /* Espacio entre estrellas proporcional al ancho de la pantalla */
+      justify-content: flex-start;
+      /* Tamaño base de la fuente proporcional al ancho de la pantalla */
+      font-size: 10vw; /* Ajusta este valor (10vw) para hacerlas más grandes o más pequeñas */
+      cursor: pointer;
+      line-height: 1;
+      /* Asegura que el contenedor tenga un tamaño mínimo razonable en pantallas muy anchas */
+      max-width: 100%; 
+      /* Ajusta el tamaño máximo en pantallas grandes si es necesario */
+      max-height: 70px; 
+    }
+    .star {
+      position: relative;
+      /* Tamaño proporcional basado en el font-size del padre (.stars) */
+      width: 1.2em; /* 1.2 veces el tamaño de la fuente del contenedor */
+      height: 1.2em; /* 1.2 veces el tamaño de la fuente del contenedor */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .star input {
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      cursor: pointer;
+    }
+    .star span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      color: #ddd;
+      transition: all 0.2s ease;
+      user-select: none;
+      font-size: 1em; /* Usa 1em para que herede el tamaño del contenedor .star */
+      line-height: 1;
+    }
+    .stars:hover .star span {
+      color: #ffa500;
+      transform: scale(1.1);
+    }
+    .star input:checked ~ span {
+      color: #FF8C00;
+      transform: scale(1);
+    }
+
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+      resize: vertical;
+      margin-top: 10px;
+    }
+
+    button {
+      background-color: #005373;
+      color: white;
+      border: none;
+      padding: 16px 24px;
+      font-size: 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s, transform 0.2s;
+      width: 100%;
+      font-weight: 500;
+    }
+    button:hover {
+      background-color: #003d55;
+      transform: translateY(-1px);
+    }
+
+    .legal {
+      font-size: 14px;
+      color: #666;
+      margin: 20px 0 0;
+      font-style: italic;
+    }
+    .footer {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Evaluación de Servicios</h1>
+    <p class="subtitle">Su opinión es esencial para siempre mejorar la calidad de nuestros servicios.</p>
+
+    <!-- FORMULARIO con envío AJAX -->
+    <form id="evaluationForm">
+      <!-- Campo oculto: Origen -->
+      <input type="hidden" name="origen" value="Sitio web">
+
+      <!-- Recomendaría la Agencia de Cuidadores ASIRTE a otra persona? -->
+      <div class="question">
+        <label>Recomendaría la Agencia de Cuidadores ASIRTE a otra persona?</label>
+        <div class="stars">
+          <label class="star">
+            <input type="radio" name="recomendacion" value="1">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="recomendacion" value="2">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="recomendacion" value="3">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="recomendacion" value="4">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="recomendacion" value="5">
+            <span>★</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Calidad de los servicios -->
+      <div class="question">
+        <label>Calidad de los servicios</label>
+        <div class="stars">
+          <label class="star">
+            <input type="radio" name="calidad" value="1">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="calidad" value="2">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="calidad" value="3">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="calidad" value="4">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="calidad" value="5">
+            <span>★</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Puntualidad del personal -->
+      <div class="question">
+        <label>Puntualidad del personal</label>
+        <div class="stars">
+          <label class="star">
+            <input type="radio" name="puntualidad" value="1">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="puntualidad" value="2">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="puntualidad" value="3">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="puntualidad" value="4">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="puntualidad" value="5">
+            <span>★</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Atención al cliente -->
+      <div class="question">
+        <label>Atención al cliente</label>
+        <div class="stars">
+          <label class="star">
+            <input type="radio" name="atencion" value="1">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="atencion" value="2">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="atencion" value="3">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="atencion" value="4">
+            <span>★</span>
+          </label>
+          <label class="star">
+            <input type="radio" name="atencion" value="5">
+            <span>★</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Palabra que define el desempeño -->
+      <div class="question">
+        <label for="palabra">¿Con qué palabra definiría el desempeño de la Agencia ASIRTE?</label>
+        <textarea id="palabra" name="palabra" placeholder="Ej: Confiable, profesional, responsable..."></textarea>
+      </div>
+
+      <!-- AVISO LEGAL -->
+      <div class="legal">
+        Me responsabilizo por la veracidad de los datos
+      </div>
+
+      <!-- BOTÓN DE ENVÍO -->
+      <button type="button" onclick="enviarFormulario()">Enviar evaluación ⭐</button>
+    </form>
+
+    <div class="footer">
+      Gracias por contribuir al crecimiento de nuestros servicios de cuidado personal.
+    </div>
+  </div>
+
+  <script>
+    // Esperar a que el DOM esté listo
+    document.addEventListener("DOMContentLoaded", function () {
+      const starsGroups = document.querySelectorAll('.stars');
+
+      // === INTERACTIVIDAD DE ESTRELLAS ===
+      starsGroups.forEach(starGroup => {
+        const stars = starGroup.querySelectorAll('.star');
+
+        // Click en cualquier estrella del grupo
+        stars.forEach((star, index) => {
+          star.addEventListener('click', function () {
+            // Restablecer todas
+            stars.forEach(s => s.querySelector('span').style.color = '#ddd');
+            // Activar desde la primera hasta la actual
+            for (let i = 0; i <= index; i++) {
+              stars[i].querySelector('span').style.color = '#FF8C00';
+            }
+          });
+        });
+
+        // También responde al cambio del radio button
+        starGroup.addEventListener('change', function () {
+          const checked = starGroup.querySelector('input:checked');
+          if (!checked) return;
+          const selectedStar = checked.parentElement;
+          const allStars = Array.from(stars);
+          const selectedIndex = allStars.indexOf(selectedStar);
+
+          // Restablecer
+          stars.forEach(s => s.querySelector('span').style.color = '#ddd');
+          // Activar hasta la seleccionada
+          for (let i = 0; i <= selectedIndex; i++) {
+            allStars[i].querySelector('span').style.color = '#FF8C00';
+          }
+        });
+      });
+
+      // Estado inicial: todas las estrellas tenues
+      document.querySelectorAll('.star span').forEach(span => {
+        span.style.color = '#ddd';
+      });
+    });
+
+    // === ENVIAR FORMULARIO CON AJAX ===
+    async function enviarFormulario() {
+      const form = document.getElementById("evaluationForm");
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbwxjh4nX22EgOyhfiQ0KGHYaxYbDXT0y6xW5eE_j8uY9Z7nrILo-2f42mHL12QaWgihOg/exec", {
+          method: "POST",
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        const result = await response.json();
+
+        if (result.result === 'success') {
+          // Mostrar mensaje de éxito
+          mostrarMensajeExito();
+        } else {
+          throw new Error(result.message || 'Error desconocido');
+        }
+      } catch (error) {
+        // Mostrar mensaje de error
+        mostrarMensajeError(error.message);
+      }
+    }
+
+    // === MOSTRAR MENSAJE DE ÉXITO ===
+    function mostrarMensajeExito() {
+      const container = document.querySelector(".container");
+      container.innerHTML = `
+        <h1 style="color:#005373;">¡Gracias por tu evaluación! ⭐</h1>
+        <p style="color:#005373; font-size:17px; line-height:1.5;">
+          Tu opinión es esencial para siempre mejorar la calidad de nuestros servicios.
+        </p>
+        <div class="footer" style="margin-top:30px;">
+          Gracias por contribuir al crecimiento de nuestros servicios de cuidado personal.
+        </div>
+      `;
+    }
+
+    // === MOSTRAR MENSAJE DE ERROR ===
+    function mostrarMensajeError(mensaje) {
+      const container = document.querySelector(".container");
+      container.innerHTML = `
+        <h1 style="color:#FF0000;">⚠️ ¡Hubo un error!</h1>
+        <p style="color:#FF0000; font-size:17px; line-height:1.5;">
+          No pudimos guardar tu evaluación. Por favor, inténtalo de nuevo.
+        </p>
+        <p style="color:#666; font-size:14px; margin-top:10px;">
+          Detalle: ${mensaje}
+        </p>
+        <div class="footer" style="margin-top:30px;">
+          Gracias por tu paciencia.
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
